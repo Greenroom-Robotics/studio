@@ -58,6 +58,9 @@ const useStyles = makeStyles<{ debugDragRegion?: boolean }, "avatar">()((
     NOT_DRAGGABLE_STYLE.backgroundColor = "red";
   }
   return {
+    hidden: {
+      display: 'none'
+    },
     toolbar: {
       display: "grid",
       width: "100%",
@@ -229,7 +232,7 @@ export function AppBar(props: AppBarProps): JSX.Element {
           <div className={classes.start}>
             <div className={classes.startInner}>
               <IconButton
-                className={cx(classes.logo, { "Mui-selected": appMenuOpen })}
+                className={cx(classes.logo, classes.hidden, { "Mui-selected": appMenuOpen })}
                 color="inherit"
                 id="app-menu-button"
                 title="Menu"
@@ -284,11 +287,11 @@ export function AppBar(props: AppBarProps): JSX.Element {
             </div>
           </div>
 
-          <div className={classes.middle}>
+          <div className={cx(classes.hidden, classes.middle)}>
             <DataSource />
           </div>
 
-          <div className={classes.end}>
+          <div className={cx(classes.end, classes.hidden)}>
             <div className={classes.endInner}>
               {enableMemoryUseIndicator && <MemoryUseIndicator />}
               {appBarLayoutButton}

@@ -32,11 +32,11 @@ export const dark: PaletteOptions = {
   mode: "dark",
   tonalOffset: 0.15,
   appBar: {
-    main: "#35363A",
-    primary: "#9480ed",
+    main: "transparent",
+    primary: "rgb(38, 132, 206)",
     text: "#ffffff",
   },
-  primary: { main: "#9480ed" },
+  primary: { main: "rgb(38, 132, 206)" },
   secondary: { main: "#b1b1b1" },
   error: { main: "#f54966" },
   warning: { main: "#eba800" },
@@ -48,8 +48,8 @@ export const dark: PaletteOptions = {
   },
   divider: "#585861",
   background: {
-    default: "#15151a",
-    paper: "#27272b",
+    default: "#000514",
+    paper: "#00071f",
     menu: "#35363A",
   },
   grey: {
@@ -75,8 +75,8 @@ export const light: PaletteOptions = {
   mode: "light",
   tonalOffset: 0.22,
   appBar: {
-    main: "#27272b",
-    primary: "#9480ed",
+    main: "#00071f",
+    primary: "rgb(38, 132, 206)",
     text: "#ffffff",
   },
   primary: { main: "#6f3be8" },
