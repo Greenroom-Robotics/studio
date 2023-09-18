@@ -7,7 +7,8 @@ import { PropsWithChildren } from "react";
 import tinycolor from "tinycolor2";
 import { makeStyles } from "tss-react/mui";
 
-import "@foxglove/studio-base/styles/assets/inter.css";
+// import "@foxglove/studio-base/styles/assets/inter.css";
+import "@foxglove/studio-base/styles/assets/space-grotesk.css";
 import "@foxglove/studio-base/styles/assets/plex-mono.css";
 
 import { fonts } from "@foxglove/studio-base/util/sharedStyleConstants";

@@ -10,7 +10,7 @@ export const fonts = {
   //
   // https://bugs.chromium.org/p/chromium/issues/detail?id=1261577
   MONOSPACE: "'IBM Plex Mono'",
-  SANS_SERIF: "'Inter'",
+  SANS_SERIF: "'SpaceGrotesk'",
 
   // enable font features https://rsms.me/inter/lab
   SANS_SERIF_FEATURE_SETTINGS: "'cv08', 'cv10', 'tnum'",
