@@ -17,6 +17,8 @@ import { useAppConfigurationValue } from "@foxglove/studio-base/hooks/useAppConf
 import * as panels from "@foxglove/studio-base/panels";
 import { SaveConfig } from "@foxglove/studio-base/types/panels";
 
+const GREENROOM_PANELS = ["Plot", "StateTransitions", "Indicator", "RawMessages", "Table", "map", "3D"]
+
 type PanelProps = {
   config: unknown;
   saveConfig: SaveConfig<unknown>;
@@ -90,7 +92,7 @@ export default function PanelCatalogProvider(
   const provider = useMemo<PanelCatalog>(() => {
     return {
       getPanels() {
-        return visiblePanels;
+        return visiblePanels.filter(panel => GREENROOM_PANELS.includes(panel.type));
       },
       getPanelByType(type: string) {
         return panelsByType.get(type);
