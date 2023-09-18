@@ -50,7 +50,7 @@ export const dark: PaletteOptions = {
   background: {
     default: "#000514",
     paper: "#00071f",
-    menu: "#35363A",
+    menu: "#000000",
   },
   grey: {
     50: "#121217",
