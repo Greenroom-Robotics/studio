@@ -6,66 +6,6 @@ on:
     types: [released]
 
 jobs:
-  bump:
-    name: Merge release branch
-    runs-on: ubuntu-20.04
-
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout release/${{ github.event.release.tag_name }}
-        uses: actions/checkout@v4.0.0
-        with:
-          ref: release/${{ github.event.release.tag_name }}
-          lfs: true
-
-      - name: Configure git
-        run: |
-          git config user.name "Foxglove"
-          git config user.email "contact@foxglove.dev"
-
-      - id: bump-version
-        uses: foxglove/action-bump-version@v1
-        with:
-          version: ${{ github.event.release.tag_name }}-dev
-          commit-message: Bump dev
-          push: true
-
-      - name: Merge release into main
-        uses: octokit/request-action@v2.x
-        with:
-          route: POST /repos/{owner}/{repo}/merges
-          owner: foxglove
-          repo: studio
-          base: main
-          head: release/${{ github.event.release.tag_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.FOXGLOVEBOT_GITHUB_TOKEN }}
-
-  npm:
-    name: Publish to NPM
-    runs-on: ubuntu-20.04
-
-    steps:
-      - name: Checkout ${{ github.event.release.tag_name || github.event.inputs.tag_name }}
-        uses: actions/checkout@v4.0.0
-        with:
-          ref: ${{ github.event.release.tag_name || github.event.inputs.tag_name }}
-          lfs: true
-
-      - uses: actions/setup-node@v3.8.1
-        with:
-          node-version: 16.17
-          registry-url: https://registry.npmjs.org
-      - run: corepack enable yarn
-
-      - run: yarn install --immutable
-
-      - run: npm publish ./packages/studio
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-
   docker:
     name: Publish to GHCR
     runs-on: ubuntu-20.04
