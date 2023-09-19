@@ -123,7 +123,7 @@ export const mainConfig =
         }
         #root {
           height: 100vh;
-          background-color: ${palette.light.background?.default};
+          background-color: black;
           color: ${palette.light.text?.primary};
         }
         @media (prefers-color-scheme: dark) {
@@ -138,7 +138,7 @@ export const mainConfig =
       global = globalThis;
       globalThis.FOXGLOVE_STUDIO_DEFAULT_LAYOUT = [/*FOXGLOVE_STUDIO_DEFAULT_LAYOUT_PLACEHOLDER*/][0];
     </script>
-    <body>
+    <body style="background: black;">
       <div id="root"></div>
     </body>
   </html>

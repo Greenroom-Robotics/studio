@@ -82,7 +82,7 @@ export function BetaAppMenu(props: BetaAppMenuProps): JSX.Element {
       onClose={handleClose}
       anchorOrigin={{
         vertical: "bottom",
-        horizontal: "left",
+        horizontal: "right",
       }}
       slotProps={{ paper: { className: classes.paper } }}
       MenuListProps={{

@@ -64,6 +64,7 @@ const useStyles = makeStyles<{ debugDragRegion?: boolean }, "avatar">()((
     toolbar: {
       display: "grid",
       width: "100%",
+      height: "80px",
       gridTemplateAreas: `"start middle end"`,
       gridTemplateColumns: "1fr auto 1fr",
       alignItems: "center",
@@ -225,31 +226,40 @@ export function AppBar(props: AppBarProps): JSX.Element {
   const userMenuOpen = Boolean(userAnchorEl);
   const panelMenuOpen = Boolean(panelAnchorEl);
 
+
   return (
     <>
       <AppBarContainer onDoubleClick={onDoubleClick} leftInset={leftInset}>
         <div className={classes.toolbar}>
           <div className={classes.start}>
             <div className={classes.startInner}>
-              <IconButton
-                className={cx(classes.logo, classes.hidden, { "Mui-selected": appMenuOpen })}
-                color="inherit"
-                id="app-menu-button"
-                title="Menu"
-                aria-controls={appMenuOpen ? "app-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={appMenuOpen ? "true" : undefined}
-                data-tourid="app-menu-button"
-                onClick={(event) => {
-                  setAppMenuEl(event.currentTarget);
-                }}
-              >
-                <FoxgloveLogo fontSize="inherit" color="inherit" />
-                <ChevronDown12Regular
-                  className={classes.dropDownIcon}
-                  primaryFill={theme.palette.common.white}
-                />
-              </IconButton>
+
+            </div>
+          </div>
+
+          <div className={cx(classes.hidden, classes.middle)}>
+            <DataSource />
+          </div>
+
+          <div className={cx(classes.end)}>
+            <div className={classes.endInner}>
+              <AppBarIconButton
+                  className={cx({ "Mui-selected": panelMenuOpen })}
+                  color="inherit"
+                  disabled={!hasCurrentLayout}
+                  id="add-panel-button"
+                  data-tourid="add-panel-button"
+                  title={t("addPanel")}
+                  aria-label="Add panel button"
+                  aria-controls={panelMenuOpen ? "add-panel-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={panelMenuOpen ? "true" : undefined}
+                  onClick={(event) => {
+                    setPanelAnchorEl(event.currentTarget);
+                  }}
+                >
+                  <SlideAdd24Regular />
+                </AppBarIconButton>
               {enableNewAppMenu ? (
                 <BetaAppMenu
                   open={appMenuOpen}
@@ -265,118 +275,6 @@ export function AppBar(props: AppBarProps): JSX.Element {
                   handleClose={() => {
                     setAppMenuEl(undefined);
                   }}
-                />
-              )}
-              <AppBarIconButton
-                className={cx({ "Mui-selected": panelMenuOpen })}
-                color="inherit"
-                disabled={!hasCurrentLayout}
-                id="add-panel-button"
-                data-tourid="add-panel-button"
-                title={t("addPanel")}
-                aria-label="Add panel button"
-                aria-controls={panelMenuOpen ? "add-panel-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={panelMenuOpen ? "true" : undefined}
-                onClick={(event) => {
-                  setPanelAnchorEl(event.currentTarget);
-                }}
-              >
-                <SlideAdd24Regular />
-              </AppBarIconButton>
-            </div>
-          </div>
-
-          <div className={cx(classes.hidden, classes.middle)}>
-            <DataSource />
-          </div>
-
-          <div className={cx(classes.end, classes.hidden)}>
-            <div className={classes.endInner}>
-              {enableMemoryUseIndicator && <MemoryUseIndicator />}
-              {appBarLayoutButton}
-              <Stack direction="row" alignItems="center" data-tourid="sidebar-button-group">
-                <AppBarIconButton
-                  title={
-                    <>
-                      {leftSidebarOpen ? t("hideLeftSidebar") : t("showLeftSidebar")}{" "}
-                      <kbd className={classes.keyEquivalent}>[</kbd>
-                    </>
-                  }
-                  aria-label={`${leftSidebarOpen ? t("hideLeftSidebar") : t("showLeftSidebar")}`}
-                  onClick={() => {
-                    sidebarActions.left.setOpen(!leftSidebarOpen);
-                  }}
-                  data-tourid="left-sidebar-button"
-                >
-                  {leftSidebarOpen ? <PanelLeft24Filled /> : <PanelLeft24Regular />}
-                </AppBarIconButton>
-                <AppBarIconButton
-                  title={
-                    <>
-                      {rightSidebarOpen ? t("hideRightSidebar") : t("showRightSidebar")}{" "}
-                      <kbd className={classes.keyEquivalent}>]</kbd>
-                    </>
-                  }
-                  aria-label={`${rightSidebarOpen ? t("hideRightSidebar") : t("showRightSidebar")}`}
-                  onClick={() => {
-                    sidebarActions.right.setOpen(!rightSidebarOpen);
-                  }}
-                  data-tourid="right-sidebar-button"
-                >
-                  {rightSidebarOpen ? <PanelRight24Filled /> : <PanelRight24Regular />}
-                </AppBarIconButton>
-              </Stack>
-              {!disableSignIn && !currentUser && signIn != undefined && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  size="small"
-                  onClick={() => {
-                    signIn();
-                    void analytics.logEvent(AppEvent.APP_BAR_CLICK_CTA, {
-                      user: "unauthenticated",
-                      cta: "sign-in",
-                    });
-                  }}
-                >
-                  {t("signIn")}
-                </Button>
-              )}
-              <Tooltip
-                classes={{ tooltip: classes.tooltip }}
-                title={currentUser?.email ?? "Profile"}
-                arrow={false}
-              >
-                <IconButton
-                  className={cx(classes.iconButton, { "Mui-selected": userMenuOpen })}
-                  aria-label="User profile menu button"
-                  color="inherit"
-                  id="user-button"
-                  data-tourid="user-button"
-                  aria-controls={userMenuOpen ? "user-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={userMenuOpen ? "true" : undefined}
-                  onClick={(event) => {
-                    setUserAnchorEl(event.currentTarget);
-                  }}
-                  data-testid="user-button"
-                >
-                  <Avatar
-                    src={currentUser?.avatarImageUrl ?? undefined}
-                    className={classes.avatar}
-                    variant="rounded"
-                  />
-                </IconButton>
-              </Tooltip>
-              {showCustomWindowControls && (
-                <CustomWindowControls
-                  onMinimizeWindow={onMinimizeWindow}
-                  isMaximized={isMaximized}
-                  onUnmaximizeWindow={onUnmaximizeWindow}
-                  onMaximizeWindow={onMaximizeWindow}
-                  onCloseWindow={onCloseWindow}
                 />
               )}
             </div>

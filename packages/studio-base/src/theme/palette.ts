@@ -32,7 +32,7 @@ export const dark: PaletteOptions = {
   mode: "dark",
   tonalOffset: 0.15,
   appBar: {
-    main: "transparent",
+    main: "black",
     primary: "rgb(38, 132, 206)",
     text: "#ffffff",
   },
